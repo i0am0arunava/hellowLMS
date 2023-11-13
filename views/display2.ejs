@@ -169,7 +169,7 @@
                                 <!-- List the chapters -->
                                 <% for (let users of userss ) { %>
                                     <% if (users.id == pack.userId) { %>
-                                        <h1 class="text-xl font-semibold mb-2">Author: <%= users.firstName %></h1>
+                                        <h1 class="text-xl font-semibold mb-2">Author: <%= users.firstName %> <%= users.lastName %></h1>
                                     <% } %>
                                 <% } %>
                             </ul>
