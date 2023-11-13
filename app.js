@@ -216,6 +216,10 @@ app.get("/signup", (req, res) => {
 })
 app.post("/signup", async (req, res) => {
 const hashedPwd = await bcrypt.hash(req.body.password,saltRounds)
+if ( req.body.password.length < 6) {
+    req.flash("error", "Please enter a valid password of minimum length of 6 characters");
+    return res.redirect("/signup");
+}
     try {
         const users = await User.create({
             firstName: req.body.firstName,
@@ -637,6 +641,10 @@ app.post("/changepassword", connectEnsureLogin.ensureLoggedIn(), async (req, res
         req.flash("error", "Confirm password is not matching with new password.");
         res.redirect("/change")
         
+    }
+    else if(req.body.newPassword.length < 6){
+        req.flash("error", "password length should be more than 6");
+        res.redirect("/change")
     }
      else {
         // If the current password doesn't match, handle the error
